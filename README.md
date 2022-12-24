@@ -1,6 +1,6 @@
 # Tokenized Lip Reading
 
-SOTA Transformer Baseline for Lip Reading in the Wild (LRW) Benchmark
+Weak-Supervised Pretraining for Cross Modal Video Language Transformers to achieve SOTA performance in Lip Reading in the Wild (LRW) Benchmark.
 
 ### Abstract
 
@@ -17,19 +17,45 @@ The goal is to construct model which classifies spoken words from video solely b
 |    Ma et al.    | ICASSP 2021 | Imperial College U.K Samsung AI  |    Resnet18    |     MS-TCN      |         87.9         |
 |    Ma et al.    |  WACV 2021  | Imperial College U.K Facebook AI |    Resnet18    |     DC-TCN      |         88.4         |
 |   Kim et al.    |  AAAI 2022  |           KAIST, Korea           |    Resnet18    |   MS-TCN/MVM    |         88.5         |
-|  **Our Team**   |      -      |   **Yonsei University, Korea**   |  **Resnet18**  | **Transformer** |       **88.6**       |
+|    **Ours**     |      -      |   **Yonsei University, Korea**   |  **Resnet18**  | **Transformer** |       **88.6**       |
 
-**Pretraining**
+### Face Landmark Spectrogram
+
+For the face coordinate, the team quantized 3 channel(RGB) x 29 frame x 256 width x 256 height video into 3 channel(X,Y,Z) x 29 frame x 420 coordinate image. Each coordinate’s (X,Y,Z) coordinate is given as channel, where spatial characteristics lie in the width and temporal axis is the height. 
+
+|                   Original Frame                    |  Face Landmark Spectrogram   |
+| :-------------------------------------------------: | :--------------------------: |
+| <img src="./assets/face1.png" width=30% height=30%> | ![face3](./assets/face3.png) |
+| <img src="./assets/face2.png" width=30% height=30%> | ![face4](./assets/face4.png) |
+
+Previous research focused on utilizing such coordinate information to reorient and normalize the position of the face. However, it is believed that interpolating entire facial features’ coordinate information will resolve previous models’ disposal of nonverbal communication cues.
+
+In order to check whether such information contains cues for the model to classify speeches, representation of such face coordinates is given as input for the gMLP classification model with tiny attention. 18 layers of gMLP block of 384 dimension and single-head attention with 48 dimension yielded output of 58.484% of validation accuracy and 57.37% of test accuracy. CNN models underperformed patchified classification due to max pooling operations halving the frame-wise resolution(=height). Therefore, patchifying face spectrograms as embedding does provide helpful information for visual speech recognition.
+
+### Two Stage Training
+
+Instead of fitting the bidirectional encoder to the classification task, the model first learns spatial-lingual features by being assigned with difficult task of generation as illustrated below.
+
+**Pretraining Encoder-Decoder Transformer**
 
 ![pretraining](./assets/pretraining.png)
 
-Illustration by [@watchstep](https://github.com/watchstep)
+- Embedded video with 3D Resnet and patchified face coordinate spectrogram image, similar to SIMVLM.
+- Trained transformer model with captioning loss using masked input and masked output, similar to T5.
+- Generated audio tokens which are noisy pseudo-labels using Wav2Vec2 speech recognition model in order to capture peripheral audio features around the target. 
+- Encoder is deeper than the decoder model for better feature extraction, similar to VideoMAE.
 
-**Finetuning**
+**Finetuning Bidirectional Encoder**
 
 ![finetuning](./assets/finetuning.png)
 
+- Detached 3D ResNet, Patch Embedding and Transformer Encoder weights for downstream task.
+- Supplied both the original input and flipped input to the model per training step where the difference between the output logits act as regularization.
+- Applied label smoothing loss and mixup augmentation which is similar to previous literatures.
+
 ### Citations
+
+Illustrations by [@watchstep](https://github.com/watchstep)
 
 ```
 @misc{github,
@@ -91,7 +117,9 @@ Illustration by [@watchstep](https://github.com/watchstep)
     pages={8472-8476},
     doi={10.1109/ICASSP43922.2022.9746706}
 }
+```
 
+```
 @INPROCEEDINGS{ma2021lip,
   title={Lip-reading with densely connected temporal convolutional networks},
   author={Ma, Pingchuan and Wang, Yujiang and Shen, Jie and Petridis, Stavros and Pantic, Maja},
@@ -100,7 +128,9 @@ Illustration by [@watchstep](https://github.com/watchstep)
   year={2021},
   doi={10.1109/WACV48630.2021.00290}
 }
+```
 
+```
 @INPROCEEDINGS{ma2020towards,
   author={Ma, Pingchuan and Martinez, Brais and Petridis, Stavros and Pantic, Maja},
   booktitle={IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
@@ -109,7 +139,9 @@ Illustration by [@watchstep](https://github.com/watchstep)
   pages={7608-7612},
   doi={10.1109/ICASSP39728.2021.9415063}
 }
+```
 
+```
 @INPROCEEDINGS{martinez2020lipreading,
   author={Martinez, Brais and Ma, Pingchuan and Petridis, Stavros and Pantic, Maja},
   booktitle={IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
@@ -119,3 +151,13 @@ Illustration by [@watchstep](https://github.com/watchstep)
   doi={10.1109/ICASSP40776.2020.9053841}
 }
 ```
+
+```
+@inproceedings{liang2021rdrop,
+  title={R-Drop: Regularized Dropout for Neural Networks},
+  author={Liang, Xiaobo* and Wu, Lijun* and Li, Juntao and Wang, Yue and Meng, Qi and Qin, Tao and Chen, Wei and Zhang, Min and Liu, Tie-Yan},
+  booktitle={NeurIPS},
+  year={2021}
+}
+```
+
