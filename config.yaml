@@ -1,0 +1,33 @@
+CONSTANTS:
+  SEED: 42
+  CHANNEL: 3
+  IMG_RES: [29, 420]
+  NUM_CLASS: 500
+  ROOT_DIR: "/home/ubuntu/LIP/LRW2/lipread_mediapipe"
+  LABEL_DIR: "/home/ubuntu/LIP/LRW2/_clones/learn-an-effective-lip-reading-model-without-pains/label_sorted.txt"
+  SAVE_GPT_PATH: "./transformers_gpt_weights"
+  SAVE_PATH: "./transformers_weights"
+  LOAD_PATH: "/home/ubuntu/LIP/transformers_gpt_weights/T5_loss_0.62.ckpt"
+  WANDB_USER: "snoop2head"
+
+MLP_HYPERPARAMS:
+  # model config
+  patch_size: [1, 420]
+  working_dim: 512
+  num_layers: 12
+
+  # pretraining config
+  batch_size: 196
+  num_epochs: 120
+  learning_rate: 0.0003 # learning rate for finetuning is 0.0001
+  weight_decay: 0.01
+  early_stop_patience: 5
+
+  # regularization hyperparameters
+  # https://arxiv.org/pdf/2106.14448.pdf
+  heads: 8
+  layer_dropout: 0.0
+  ff_dropout: 0.3
+  emb_dropout: 0.15
+  reg_lamda: 5 # Rdrop regularization
+  wandb_project_name: "Yonsei-VNL-Final"

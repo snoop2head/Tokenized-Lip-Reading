@@ -1,0 +1,9 @@
+x-transformers
+torch
+torchvision
+tqdm
+wandb
+transformers
+wandb
+pytorchvideo
+mediapipe

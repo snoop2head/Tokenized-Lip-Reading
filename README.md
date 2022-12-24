@@ -1,0 +1,121 @@
+# Tokenized Lip Reading
+
+SOTA Transformer Baseline for Lip Reading in the Wild (LRW) Benchmark
+
+### Abstract
+
+The goal is to construct model which classifies spoken words from video solely based on visual input. Lip reading classification models are consisted of frontend-backend structure, where dominant backend modules are intricate recurrent or temporal convolutional network. The team proposes new training strategy: (1) pretraining encoder-decoder transformer with input of facial landmark spectrograms and grayscale videos yielding captioning loss from the output of pseudo-labeled audio tokens, (2) finetuning pretrained encoder only for the classification task. **Two-stage training methodology requires no extra data and achieves state of the art performance by improving previous transformer baseline by +12.4%p in LRW benchmark.** Our model achieves 88.62% test accuracy after training 24 hours on three GPUs, reducing total training costs by 14% compared to RNN based baseline.
+
+|     Method      |    Venue    |           Organization           | Spatial Module | Temporal Module | LRW Test Accuracy(%) |
+| :-------------: | :---------: | :------------------------------: | :------------: | :-------------: | :------------------: |
+|   Weng et al.   |  BMVC 2019  |             CMU, USA             |      I3D       |     BiLSTM      |         84.1         |
+|   Luo et al.    |  BMVC 2020  |            CAS, China            |    Resnet18    |   Transformer   |         76.2         |
+|   Zhao et al.   |  AAAI 2020  |            CAS, China            |    Resnet18    |   BiGRU+LSTM    |         84.4         |
+|    Xu et al.    |  CVPR 2020  |           Xpeng motors           |    Resnet50    |     BiLSTM      |         84.8         |
+| Martinez et al. | ICASSP 2020 | Imperial College U.K Facebook AI |    Resnet18    |     MS-TCN      |         85.3         |
+|   Kim et al.    |  CVPR 2021  |           KAIST, Korea           |    Resnet18    |      BiGRU      |         85.4         |
+|    Ma et al.    | ICASSP 2021 | Imperial College U.K Samsung AI  |    Resnet18    |     MS-TCN      |         87.9         |
+|    Ma et al.    |  WACV 2021  | Imperial College U.K Facebook AI |    Resnet18    |     DC-TCN      |         88.4         |
+|   Kim et al.    |  AAAI 2022  |           KAIST, Korea           |    Resnet18    |   MS-TCN/MVM    |         88.5         |
+|  **Our Team**   |      -      |   **Yonsei University, Korea**   |  **Resnet18**  | **Transformer** |       **88.6**       |
+
+**Pretraining**
+
+![pretraining](./assets/pretraining.png)
+
+Illustration by [@watchstep](https://github.com/watchstep)
+
+**Finetuning**
+
+![finetuning](./assets/finetuning.png)
+
+### Citations
+
+```
+@misc{github,
+  author={Phil Wang},
+  title={x-transformers},
+  year={2022},
+  url={https://github.com/lucidrains/x-transformers},
+}
+```
+
+```
+@misc{vaswani2017attention,
+    title   = {Attention Is All You Need},
+    author  = {Ashish Vaswani and Noam Shazeer and Niki Parmar and Jakob Uszkoreit and Llion Jones and Aidan N. Gomez and Lukasz Kaiser and Illia Polosukhin},
+    year    = {2017},
+    eprint  = {1706.03762},
+    archivePrefix = {arXiv},
+    primaryClass = {cs.CL}
+}
+```
+
+```
+@misc{shazeer2020glu,
+    title   = {GLU Variants Improve Transformer},
+    author  = {Noam Shazeer},
+    year    = {2020},
+    url     = {https://arxiv.org/abs/2002.05202}
+}
+```
+
+```
+@misc{zhang2019root,
+    title   = {Root Mean Square Layer Normalization},
+    author  = {Biao Zhang and Rico Sennrich},
+    year    = {2019},
+    eprint  = {1910.07467},
+    archivePrefix = {arXiv},
+    primaryClass = {cs.LG}
+}
+```
+
+```
+@misc{su2021roformer,
+    title   = {RoFormer: Enhanced Transformer with Rotary Position Embedding},
+    author  = {Jianlin Su and Yu Lu and Shengfeng Pan and Bo Wen and Yunfeng Liu},
+    year    = {2021},
+    eprint  = {2104.09864},
+    archivePrefix = {arXiv},
+    primaryClass = {cs.CL}
+}
+```
+
+```
+@INPROCEEDINGS{ma2022training,
+    author={Ma, Pingchuan and Wang, Yujiang and Petridis, Stavros and Shen, Jie and Pantic, Maja},
+    booktitle={IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+    title={Training Strategies for Improved Lip-Reading},
+    year={2022},
+    pages={8472-8476},
+    doi={10.1109/ICASSP43922.2022.9746706}
+}
+
+@INPROCEEDINGS{ma2021lip,
+  title={Lip-reading with densely connected temporal convolutional networks},
+  author={Ma, Pingchuan and Wang, Yujiang and Shen, Jie and Petridis, Stavros and Pantic, Maja},
+  booktitle={Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  pages={2857-2866},
+  year={2021},
+  doi={10.1109/WACV48630.2021.00290}
+}
+
+@INPROCEEDINGS{ma2020towards,
+  author={Ma, Pingchuan and Martinez, Brais and Petridis, Stavros and Pantic, Maja},
+  booktitle={IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  title={Towards Practical Lipreading with Distilled and Efficient Models},
+  year={2021},
+  pages={7608-7612},
+  doi={10.1109/ICASSP39728.2021.9415063}
+}
+
+@INPROCEEDINGS{martinez2020lipreading,
+  author={Martinez, Brais and Ma, Pingchuan and Petridis, Stavros and Pantic, Maja},
+  booktitle={IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  title={Lipreading Using Temporal Convolutional Networks},
+  year={2020},
+  pages={6319-6323},
+  doi={10.1109/ICASSP40776.2020.9053841}
+}
+```
