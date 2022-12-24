@@ -23,10 +23,10 @@ The goal is to construct model which classifies spoken words from video solely b
 
 For the face coordinate, the team quantized 3 channel(RGB) x 29 frame x 256 width x 256 height video into 3 channel(X,Y,Z) x 29 frame x 420 coordinate image. Each coordinate’s (X,Y,Z) coordinate is given as channel, where spatial characteristics lie in the width and temporal axis is the height.
 
-|                   Original Frame                    |  Face Landmark Spectrogram   |
-| :-------------------------------------------------: | :--------------------------: |
-| <img src="./assets/face1.png" width=30% height=30%> | ![face3](./assets/face3.png) |
-| <img src="./assets/face2.png" width=30% height=30%> | ![face4](./assets/face4.png) |
+|        Face Landmarks and Spectrogram Image         |
+| :-------------------------------------------------: |
+| <img src="./assets/face1.png" width=30% height=30%> |
+|            ![face3](./assets/face3.png)             |
 
 Previous research focused on utilizing such coordinate information to reorient and normalize the position of the face. However, it is believed that interpolating entire facial features’ coordinate information will resolve previous models’ disposal of nonverbal communication cues.
 
@@ -40,20 +40,17 @@ Instead of fitting the bidirectional encoder to the classification task, the mod
 
 ![pretraining](./assets/pretraining.png)
 
-|   Noisy Pseudo Labels   | Encoder-Decoder Prediction |
-| :---------------------: | :------------------------: |
-|    ABSONLUTELY DEAD     |      ABSOLUTELY TAKE       |
-|   R IS AN OBSECTY HEW   |    IS IT ABSOLUTELY COU    |
-| T THERE IS ABSENTL IN A |       ABSOLUTELY CO        |
-|     NO ABSET YE NOT     |    ARE ABSOLUTELY NICE     |
-|   RELATE I OPES'LL BE   |         ABSOLUTELY         |
-
-
-- Embedded video with 3D Resnet and patchified face coordinate spectrogram image, similar to SIMVLM.
-- Trained transformer model with captioning loss using masked input and masked output, similar to T5.
-- Generated audio tokens which are noisy pseudo-labels using Wav2Vec2 speech recognition model in order to capture peripheral audio features around the target.
-- Encoder is deeper than the decoder model for better feature extraction, similar to VideoMAE.
-
+- Embedded video with 3D Resnet and patchified face coordinate spectrogram image, similar to [SIMVLM](https://arxiv.org/pdf/2108.10904.pdf).
+- Trained transformer model with captioning loss using masked input and masked output, similar to [T5](https://arxiv.org/abs/1910.10683).
+- Provided audio tokens, noisy pseudo-labels leveraging Wav2Vec2 model, in order to capture peripheral audio features around the target, similar to [AudioLM](https://arxiv.org/pdf/2209.03143.pdf).
+  | Noisy Pseudo Labels | Encoder-Decoder Prediction |
+  | :---------------------: | :------------------------: |
+  | ABSONLUTELY DEAD | ABSOLUTELY TAKE |
+  | R IS AN OBSECTY HEW | IS IT ABSOLUTELY COU |
+  | T THERE IS ABSENTL IN A | ABSOLUTELY CO |
+  | NO ABSET YE NOT | ARE ABSOLUTELY NICE |
+  | RELATE I OPES'LL BE | ABSOLUTELY |
+- Encoder is deeper than the decoder model to enable feature extraction, similar to [VideoMAE](https://arxiv.org/abs/2203.12602).
 
 **Finetuning Bidirectional Encoder**
 
