@@ -1,6 +1,6 @@
 # Tokenized Lip Reading
 
-Weak-Supervised Pretraining for Cross Modal Video Language Transformers to achieve SOTA performance in Lip Reading in the Wild (LRW) Benchmark.
+Self-Supervised Pretraining for Cross Modal Video Language Transformers to achieve SOTA performance in Lip Reading in the Wild (LRW) Benchmark.
 
 ### Abstract
 
@@ -21,7 +21,7 @@ The goal is to construct model which classifies spoken words from video solely b
 
 ### Face Landmark Spectrogram
 
-For the face coordinate, the team quantized 3 channel(RGB) x 29 frame x 256 width x 256 height video into 3 channel(X,Y,Z) x 29 frame x 420 coordinate image. Each coordinate’s (X,Y,Z) coordinate is given as channel, where spatial characteristics lie in the width and temporal axis is the height. 
+For the face coordinate, the team quantized 3 channel(RGB) x 29 frame x 256 width x 256 height video into 3 channel(X,Y,Z) x 29 frame x 420 coordinate image. Each coordinate’s (X,Y,Z) coordinate is given as channel, where spatial characteristics lie in the width and temporal axis is the height.
 
 |                   Original Frame                    |  Face Landmark Spectrogram   |
 | :-------------------------------------------------: | :--------------------------: |
@@ -40,10 +40,20 @@ Instead of fitting the bidirectional encoder to the classification task, the mod
 
 ![pretraining](./assets/pretraining.png)
 
+|   Noisy Pseudo Labels   | Encoder-Decoder Prediction |
+| :---------------------: | :------------------------: |
+|    ABSONLUTELY DEAD     |      ABSOLUTELY TAKE       |
+|   R IS AN OBSECTY HEW   |    IS IT ABSOLUTELY COU    |
+| T THERE IS ABSENTL IN A |       ABSOLUTELY CO        |
+|     NO ABSET YE NOT     |    ARE ABSOLUTELY NICE     |
+|   RELATE I OPES'LL BE   |         ABSOLUTELY         |
+
+
 - Embedded video with 3D Resnet and patchified face coordinate spectrogram image, similar to SIMVLM.
 - Trained transformer model with captioning loss using masked input and masked output, similar to T5.
-- Generated audio tokens which are noisy pseudo-labels using Wav2Vec2 speech recognition model in order to capture peripheral audio features around the target. 
+- Generated audio tokens which are noisy pseudo-labels using Wav2Vec2 speech recognition model in order to capture peripheral audio features around the target.
 - Encoder is deeper than the decoder model for better feature extraction, similar to VideoMAE.
+
 
 **Finetuning Bidirectional Encoder**
 
@@ -160,4 +170,3 @@ Illustrations by [@watchstep](https://github.com/watchstep)
   year={2021}
 }
 ```
-
