@@ -19,16 +19,19 @@ The goal is to construct model which classifies spoken words from video solely b
 |   Kim et al.    |  AAAI 2022  |           KAIST, Korea           |    Resnet18    |   MS-TCN/MVM    |         88.5         |
 |    **Ours**     |      -      |   **Yonsei University, Korea**   |  **Resnet18**  | **Transformer** |       **88.6**       |
 
-### Face Landmark Spectrogram
+### Face Coordinate Spectrogram
 
 For the face coordinate, the team quantized 3 channel(RGB) x 29 frame x 256 width x 256 height video into 3 channel(X,Y,Z) x 29 frame x 420 coordinate image. Each coordinate’s (X,Y,Z) coordinate is given as channel, where spatial characteristics lie in the width and temporal axis is the height.
 
-|        Face Landmarks and Spectrogram Image         |
-| :-------------------------------------------------: |
-| <img src="./assets/face1.png" width=30% height=30%> |
-|            ![face3](./assets/face3.png)             |
+|          Original Video          | Face Landmark Video |
+| :------------------------------: | :-----------------: |
+| ![BRITAIN](./assets/BRITAIN.gif) |                     |
 
-Previous research focused on utilizing such coordinate information to reorient and normalize the position of the face. However, it is believed that interpolating entire facial features’ coordinate information will resolve previous models’ disposal of nonverbal communication cues.
+| Face Coordinate Spectrogram  |
+| :--------------------------: |
+| ![face3](./assets/face3.png) |
+
+Previous research focused on utilizing such coordinate information to reorient and normalize the position of the face. However, interpolating entire facial features’ coordinate information to use as another input will resolve previous models’ disposal of nonverbal communication cues.
 
 In order to check whether such information contains cues for the model to classify speeches, representation of such face coordinates is given as input for the gMLP classification model with tiny attention. 18 layers of gMLP block of 384 dimension and single-head attention with 48 dimension yielded output of 58.484% of validation accuracy and 57.37% of test accuracy. CNN models underperformed patchified classification due to max pooling operations halving the frame-wise resolution(=height). Therefore, patchifying face spectrograms as embedding does provide helpful information for visual speech recognition.
 
@@ -42,6 +45,7 @@ Instead of fitting the bidirectional encoder to the classification task, the mod
 
 - Embedded video with 3D Resnet and patchified face coordinate spectrogram image, similar to [SIMVLM](https://arxiv.org/pdf/2108.10904.pdf).
 - Trained transformer model with captioning loss using masked input and masked output, similar to [T5](https://arxiv.org/abs/1910.10683).
+- Encoder is deeper than the decoder in order to enable better feature extraction, similar to [VideoMAE](https://arxiv.org/abs/2203.12602).
 - Provided audio tokens, noisy pseudo-labels leveraging Wav2Vec2 model, in order to capture peripheral audio features around the target, similar to [AudioLM](https://arxiv.org/pdf/2209.03143.pdf).
   | Noisy Pseudo Labels | Encoder-Decoder Prediction |
   | :---------------------: | :------------------------: |
@@ -50,13 +54,13 @@ Instead of fitting the bidirectional encoder to the classification task, the mod
   | T THERE IS ABSENTL IN A | ABSOLUTELY CO |
   | NO ABSET YE NOT | ARE ABSOLUTELY NICE |
   | RELATE I OPES'LL BE | ABSOLUTELY |
-- Encoder is deeper than the decoder model to enable feature extraction, similar to [VideoMAE](https://arxiv.org/abs/2203.12602).
 
 **Finetuning Bidirectional Encoder**
 
 ![finetuning](./assets/finetuning.png)
 
 - Detached 3D ResNet, Patch Embedding and Transformer Encoder weights for downstream task.
+- Encoder is 12 transformers layers, where last 4 encoder layers' hidden states were passed on to classification head.
 - Supplied both the original input and flipped input to the model per training step where the difference between the output logits act as regularization.
 - Applied label smoothing loss and mixup augmentation which is similar to previous literatures.
 

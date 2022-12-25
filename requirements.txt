@@ -7,3 +7,5 @@ transformers
 wandb
 pytorchvideo
 mediapipe
+pandas
+numpy
