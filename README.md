@@ -4,7 +4,7 @@ Self-Supervised Pretraining for Cross Modal Video Language Transformers to achie
 
 ### Abstract
 
-The goal is to construct model which classifies spoken words from video solely based on visual input. Lip reading classification models are consisted of frontend-backend structure, where dominant backend modules are intricate recurrent or temporal convolutional network. The team proposes new training strategy: (1) pretraining encoder-decoder transformer with input of facial landmark spectrograms and grayscale videos yielding captioning loss from the output of pseudo-labeled audio tokens, (2) finetuning pretrained encoder only for the classification task. **Two-stage training methodology requires no extra data and achieves state of the art performance by improving previous transformer baseline by +12.4%p in LRW benchmark.** Our model achieves 88.62% test accuracy after training 24 hours on three GPUs, reducing total training costs by 14% compared to RNN based baseline.
+The goal is to construct model which classifies spoken words from video solely based on visual input. Lip reading classification models are consisted of frontend-backend structure, where dominant backend modules are intricate recurrent or temporal convolutional network. The team proposes new training strategy: (1) pretraining encoder-decoder transformer with input of facial landmark spectrograms and grayscale videos yielding captioning loss from the output of pseudo-labeled audio tokens, (2) finetuning pretrained encoder only for the classification task. **Two-stage training methodology requires no extra data and achieves state of the art performance by improving previous transformer baseline by +12.5%p in LRW benchmark.** Our model achieves 88.75% test accuracy after training 24 hours on three GPUs, reducing total training costs by 14% compared to RNN based baseline.
 
 |     Method      |    Venue    |           Organization           | Spatial Module | Temporal Module | LRW Test Accuracy(%) |
 | :-------------: | :---------: | :------------------------------: | :------------: | :-------------: | :------------------: |
@@ -17,7 +17,7 @@ The goal is to construct model which classifies spoken words from video solely b
 |    Ma et al.    | ICASSP 2021 | Imperial College U.K Samsung AI  |    Resnet18    |     MS-TCN      |         87.9         |
 |    Ma et al.    |  WACV 2021  | Imperial College U.K Facebook AI |    Resnet18    |     DC-TCN      |         88.4         |
 |   Kim et al.    |  AAAI 2022  |           KAIST, Korea           |    Resnet18    |   MS-TCN/MVM    |         88.5         |
-|    **Ours**     |      -      |   **Yonsei University, Korea**   |  **Resnet18**  | **Transformer** |       **88.6**       |
+|    **Ours**     |      -      |   **Yonsei University, Korea**   |  **Resnet18**  | **Transformer** |      **88.75**       |
 
 ### Face Coordinate Spectrogram
 
@@ -37,7 +37,7 @@ In order to check whether such information contains cues for the model to classi
 
 ### Two Stage Training
 
-Instead of fitting the bidirectional encoder to the classification task, the model first learns spatial-lingual features by being assigned with difficult task of generation as illustrated below.
+Instead of fitting the bidirectional encoder to the classification task, BERT-alike 12 layers encoder model first learns spatial-lingual features by being assigned with difficult task of generation as illustrated below.
 
 **Pretraining Encoder-Decoder Transformer**
 
@@ -59,10 +59,10 @@ Instead of fitting the bidirectional encoder to the classification task, the mod
 
 ![finetuning](./assets/finetuning.png)
 
-- Detached 3D ResNet, Patch Embedding and Transformer Encoder weights for downstream task.
-- Encoder is 12 transformers layers, where last 4 encoder layers' hidden states were passed on to classification head.
+- Utilized previously pretrained 3D ResNet, patch embedding and transformer encoder weights for downstream task.
+- Passed on last 4 encoder layers' hidden states to the classification head.
 - Supplied both the original input and flipped input to the model per training step where the difference between the output logits act as regularization.
-- Applied label smoothing loss and mixup augmentation which is similar to previous literatures.
+- Applied label smoothing loss and mixup augmentation.
 
 ### Citations
 
