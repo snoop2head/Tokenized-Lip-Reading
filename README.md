@@ -4,7 +4,7 @@ Self-Supervised Pretraining for Cross Modal Video Language Transformers to achie
 
 ### Abstract
 
-The goal is to construct model which classifies spoken words from video solely based on visual input. Lip reading classification models are consisted of frontend-backend structure, where dominant backend modules are intricate recurrent or temporal convolutional network. The team proposes new training strategy: (1) pretraining encoder-decoder transformer with input of facial landmark spectrograms and grayscale videos yielding captioning loss from the output of pseudo-labeled audio tokens, (2) finetuning pretrained encoder only for the classification task. **Two-stage training methodology requires no extra data and achieves state of the art performance by improving previous transformer baseline by +12.5%p in LRW benchmark.** Our model achieves 88.75% test accuracy after training 24 hours on three GPUs, reducing total training costs by 14% compared to RNN based baseline.
+The goal is to construct model which classifies spoken words from video solely based on visual input. Lip reading classification models are consisted of frontend-backend structure, where dominant backend modules are intricate recurrent or temporal convolutional network. The team proposes new training strategy: (1) pretraining encoder-decoder transformer with input of facial landmark spectrograms and grayscale videos yielding captioning loss from the output of pseudo-labeled audio tokens, (2) finetuning pretrained encoder only for the classification task. **Two-stage training methodology requires no extra data and achieves state of the art performance by improving previous transformer baseline by +12.5%p in LRW benchmark.** Our model achieves 88.75% test accuracy after training 23 hours on three GPUs, reducing total training costs by 18% compared to RNN based baseline.
 
 |     Method      |    Venue    |           Organization           | Spatial Module | Temporal Module | LRW Test Accuracy(%) |
 | :-------------: | :---------: | :------------------------------: | :------------: | :-------------: | :------------------: |
@@ -31,9 +31,9 @@ For the face coordinate, the team quantized 3 channel(RGB) x 29 frame x 256 widt
 | :--------------------------: |
 | ![face3](./assets/face3.png) |
 
-Previous research focused on utilizing such coordinate information to reorient and normalize the position of the face. However, interpolating entire facial features’ coordinate information to use as another input will resolve previous models’ disposal of nonverbal communication cues.
+Previous research focused on utilizing such coordinate information to reorient and normalize the position of the face. However, interpolating entire facial features’ coordinate information to use as another input will resolve previous problem of disposing nonverbal communication cues outside of RoI.
 
-In order to check whether such information contains cues for the model to classify speeches, representation of such face coordinates is given as input for the gMLP classification model with tiny attention. 18 layers of gMLP block of 384 dimension and single-head attention with 48 dimension yielded output of 58.484% of validation accuracy and 57.37% of test accuracy. CNN models underperformed patchified classification due to max pooling operations halving the frame-wise resolution(=height). Therefore, patchifying face spectrograms as embedding does provide helpful information for visual speech recognition.
+In order to check whether such information contain cues for the model to classify speeches, representation of such face coordinates is given as input for the gMLP classification model with tiny attention. 18 layers of gMLP block of 384 dimension and single-head attention with 48 dimension yielded output of 58.484% of validation accuracy and 57.37% of test accuracy. CNN models underperformed patchified classification due to max pooling operations halving the frame-wise resolution. Therefore, patchifying face spectrograms as embedding does provide helpful information for visual speech recognition.
 
 ### Two Stage Training
 
@@ -45,7 +45,7 @@ Instead of fitting the bidirectional encoder to the classification task, BERT-al
 
 - Embedded video with 3D Resnet and patchified face coordinate spectrogram image, similar to [SIMVLM](https://arxiv.org/pdf/2108.10904.pdf).
 - Trained transformer model with captioning loss using masked input and masked output, similar to [T5](https://arxiv.org/abs/1910.10683).
-- Encoder is deeper than the decoder in order to enable better feature extraction, similar to [VideoMAE](https://arxiv.org/abs/2203.12602).
+- Set encoder deeper than decoder in order to enable better feature extraction, similar to [VideoMAE](https://arxiv.org/abs/2203.12602).
 - Provided audio tokens, noisy pseudo-labels leveraging Wav2Vec2 model, in order to capture peripheral audio features around the target, similar to [AudioLM](https://arxiv.org/pdf/2209.03143.pdf).
   | Noisy Pseudo Labels | Encoder-Decoder Prediction |
   | :---------------------: | :------------------------: |
