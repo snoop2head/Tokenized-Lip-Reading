@@ -69,39 +69,23 @@ Instead of fitting the bidirectional encoder to the classification task, BERT-al
 - [🔗 Encoder-Decoder Transformer Checkpoint](https://drive.google.com/file/d/1o-n8J0gHlLmIO37kFB-9tvHHTAPtuciv/view?usp=share_link)
 - [🔗 Finetuned Bidirectional Encoder Checkpoint](https://drive.google.com/file/d/1f8aHeY79VqdSjnT9YZ9Tp2IKfUayqhUM/view?usp=share_link)
 
-| Pretraining Hyperparams | Encoder-Decoder Transformer |
-| :---------------------: | :-------------------------: |
-|     Training Hours      |            11hrs            |
-|         #Epochs         |              7              |
-|         #Params         |             93M             |
-|   Computing Resource    |        V100 32GB x 3        |
-|       Batch Size        |           64 x 3            |
-|         #Layers         |   12 Encoder + 6 Decoder    |
-|  Initial Learning Rate  |            3e-4             |
-|      Weight Decay       |            1e-2             |
-|        Optimizer        |            AdamW            |
-|      LR Scheduler       |      CosineAnnealingLR      |
-|        Dimension        |             512             |
-|    #Attention Heads     |              8              |
-|    Embedding Dropout    |            0.15             |
-|   FeedForward Dropout   |             0.3             |
+|      Hyperparams      | Pretraining Encoder-Decoder | Finetuning Bidirectional Encoder |
+| :-------------------: | :-------------------------------------: | :----: |
+|    Training Hours     |                  11hrs                  | 12hrs |
+|        #Epochs        |                    7                    | 10 |
+|        #Params        |                   93M                   | 63M |
+|  Computing Resource   |              V100 32GB x 3              | V100 32GB x 3 |
+|      Batch Size       |                 64 x 3                  | 64 x 3 |
+|        #Layers        |         12 Encoder + 6 Decoder          | 12 Encoder + 1 Classifier |
+| Initial Learning Rate |                  3e-4                   | 1e-4 |
+|     Weight Decay      |                  1e-2                   | 1e-2 |
+|       Optimizer       |                  AdamW                  | AdamW |
+|     LR Scheduler      |            CosineAnnealingLR            | CosineAnnealingLR |
+|       Dimension       |                   512                   | 512 |
+|   #Attention Heads    |                    8                    | 8 |
+|   Embedding Dropout   |                  0.15                   | 0.15 |
+|  FeedForward Dropout  |                   0.3                   | 0.3 |
 
-| Finetuning Hyperparams |   Bidirectional Encoder   |
-| :--------------------: | :-----------------------: |
-|     Training Hours     |           12hrs           |
-|        #Epochs         |            10             |
-|        #Params         |            63M            |
-|   Computing Resource   |       V100 32GB x 3       |
-|       Batch Size       |          64 x 3           |
-| Initial Learning Rate  |           1e-4            |
-|      Weight Decay      |           1e-2            |
-|        #Layers         | 12 Encoder + 1 Classifier |
-|       Optimizer        |           AdamW           |
-|      LR Scheduler      |     CosineAnnealingLR     |
-|       Dimension        |            512            |
-|    #Attention Heads    |             8             |
-|   Embedding Dropout    |           0.15            |
-|  FeedForward Dropout   |            0.3            |
 
 ### Citations
 
