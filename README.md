@@ -23,9 +23,9 @@ The goal is to construct model which classifies spoken words from video solely b
 
 For the face coordinate, the team quantized 3 channel(RGB) x 29 frame x 256 width x 256 height video into 3 channel(X,Y,Z) x 29 frame x 420 coordinate image. Each coordinate’s (X,Y,Z) coordinate is given as channel, where spatial characteristics lie in the width and temporal axis is the height.
 
-|          Original Video          | Face Landmark Video |
-| :------------------------------: | :-----------------: |
-| ![BRITAIN](./assets/BRITAIN.gif) |                     |
+|          Original Video          |                  Face Landmark Video                   |
+| :------------------------------: | :----------------------------------------------------: |
+| ![BRITAIN](./assets/BRITAIN.gif) | ![Coordinate_BRITAIN](./assets/BRITAIN_coordinate.gif) |
 
 | Face Coordinate Spectrogram  |
 | :--------------------------: |
