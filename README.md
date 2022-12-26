@@ -8,16 +8,16 @@ The goal is to construct model which classifies spoken words from video solely b
 
 |     Method      |    Venue    |           Organization           | Spatial Module | Temporal Module | LRW Test Accuracy(%) |
 | :-------------: | :---------: | :------------------------------: | :------------: | :-------------: | :------------------: |
-|   Weng et al.   |  BMVC 2019  |             CMU, USA             |      I3D       |     BiLSTM      |         84.1         |
-|   Luo et al.    |  BMVC 2020  |            CAS, China            |    Resnet18    |   Transformer   |         76.2         |
-|   Zhao et al.   |  AAAI 2020  |            CAS, China            |    Resnet18    |   BiGRU+LSTM    |         84.4         |
-|    Xu et al.    |  CVPR 2020  |           Xpeng motors           |    Resnet50    |     BiLSTM      |         84.8         |
-| Martinez et al. | ICASSP 2020 | Imperial College U.K Facebook AI |    Resnet18    |     MS-TCN      |         85.3         |
-|   Kim et al.    |  CVPR 2021  |           KAIST, Korea           |    Resnet18    |      BiGRU      |         85.4         |
-|    Ma et al.    | ICASSP 2021 | Imperial College U.K Samsung AI  |    Resnet18    |     MS-TCN      |         87.9         |
-|    Ma et al.    |  WACV 2021  | Imperial College U.K Facebook AI |    Resnet18    |     DC-TCN      |         88.4         |
-|   Kim et al.    |  AAAI 2022  |           KAIST, Korea           |    Resnet18    |   MS-TCN/MVM    |         88.5         |
 |    **Ours**     |      -      |   **Yonsei University, Korea**   |  **Resnet18**  | **Transformer** |      **88.75**       |
+|   Kim et al.    |  AAAI 2022  |           KAIST, Korea           |    Resnet18    |   MS-TCN/MVM    |         88.5         |
+|    Ma et al.    |  WACV 2021  | Imperial College U.K Facebook AI |    Resnet18    |     DC-TCN      |         88.4         |
+|    Ma et al.    | ICASSP 2021 | Imperial College U.K Samsung AI  |    Resnet18    |     MS-TCN      |         87.9         |
+|   Kim et al.    |  CVPR 2021  |           KAIST, Korea           |    Resnet18    |      BiGRU      |         85.4         |
+| Martinez et al. | ICASSP 2020 | Imperial College U.K Facebook AI |    Resnet18    |     MS-TCN      |         85.3         |
+|    Xu et al.    |  CVPR 2020  |           Xpeng motors           |    Resnet50    |     BiLSTM      |         84.8         |
+|   Zhao et al.   |  AAAI 2020  |            CAS, China            |    Resnet18    |   BiGRU+LSTM    |         84.4         |
+|   Luo et al.    |  BMVC 2020  |            CAS, China            |    Resnet18    |   Transformer   |         76.2         |
+|   Weng et al.   |  BMVC 2019  |             CMU, USA             |      I3D       |     BiLSTM      |         84.1         |
 
 ### Face Coordinate Spectrogram
 
