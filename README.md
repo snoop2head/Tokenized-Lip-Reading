@@ -69,28 +69,29 @@ Instead of fitting the bidirectional encoder to the classification task, BERT-al
 - [🔗 Encoder-Decoder Transformer Checkpoint](https://drive.google.com/file/d/1o-n8J0gHlLmIO37kFB-9tvHHTAPtuciv/view?usp=share_link)
 - [🔗 Finetuned Bidirectional Encoder Checkpoint](https://drive.google.com/file/d/1f8aHeY79VqdSjnT9YZ9Tp2IKfUayqhUM/view?usp=share_link)
 
-|      Hyperparams      | Pretraining Encoder-Decoder | Finetuning Bidirectional Encoder |
-| :-------------------: | :-------------------------: | :------------------------------: |
-|    Training Hours     |            11hrs            |              12hrs               |
-|        #Epochs        |              7              |                10                |
-|        #Params        |             93M             |               63M                |
-|  Computing Resource   |        V100 32GB x 3        |          V100 32GB x 3           |
-|      Batch Size       |           42 x 3            |              64 x 3              |
-|    Video Frontend     |       3D CNN + ResNet       |         3D CNN + ResNet          |
-| Spectrogram Frontend  |       Patchification        |          Patchification          |
-|   Backbone #Layers    |   12 Encoder + 6 Decoder    |    12 Encoder + 1 Classifier     |
-| Initial Learning Rate |            3e-4             |               1e-4               |
-|     Weight Decay      |            1e-2             |               1e-2               |
-|       Optimizer       |            AdamW            |              AdamW               |
-|     LR Scheduler      |      CosineAnnealingLR      |        CosineAnnealingLR         |
-|       Dimension       |             512             |               512                |
-|   #Attention Heads    |              8              |                8                 |
-|   Embedding Dropout   |            0.15             |               0.15               |
-|  FeedForward Dropout  |             0.3             |               0.3                |
+|     Hyperparams      | Pretraining Encoder-Decoder | Finetuning Bidirectional Encoder |
+| :------------------: | :-------------------------: | :------------------------------: |
+|    Training Hours    |            11hrs            |              12hrs               |
+|       #Epochs        |              7              |                10                |
+|       #Params        |             93M             |               63M                |
+|     GPU Resource     |        V100 32GB x 3        |          V100 32GB x 3           |
+|      Batch Size      |           42 x 3            |              64 x 3              |
+|    Video Frontend    |       3D CNN + ResNet       |         3D CNN + ResNet          |
+| Spectrogram Frontend |       Patchification        |          Patchification          |
+|   Backbone #Layers   |   12 Encoder + 6 Decoder    |    12 Encoder + 1 Classifier     |
+|      Initial LR      |            3e-4             |               1e-4               |
+|     Weight Decay     |            1e-2             |               1e-2               |
+|      Optimizer       |            AdamW            |              AdamW               |
+|     LR Scheduler     |      CosineAnnealingLR      |        CosineAnnealingLR         |
+|      Dimension       |             512             |               512                |
+|   #Attention Heads   |              8              |                8                 |
+|  Embedding Dropout   |            0.15             |               0.15               |
+| FeedForward Dropout  |             0.3             |               0.3                |
 
 ### Dataset Description
 
 Lip Reading in the Wild(LRW) Benchmark is visual speech classification task for spoken word classification. Dataset's raw data are video clips of BBC newsreaders where the benchmark is provided by Visual Geometry Group of University of Oxford.
+
 LRW dataset is consisted of 166 hrs worth of 500K videos. Each video consists of a sequence of 29 frames (1.16 seconds). The dataset sets 500 different english word as labels, where each of them has 1000 utterances spoken by different speakers. The dataset provides the train, validation, and test sets, as well as the metadata describing the time when the label word appears in the video.
 
 ### Citations
