@@ -1,6 +1,6 @@
 # Tokenized Lip Reading
 
-Self-Supervised Pretraining for Cross Modal Video Language Transformers to achieve SOTA performance in Lip Reading in the Wild (LRW) Benchmark.
+Self-Supervised Pretraining for Cross Modal Video Language Transformers to achieve SOTA performance in Lip Reading in the Wild (LRW) Benchmark without additional data.
 
 ### Abstract
 
