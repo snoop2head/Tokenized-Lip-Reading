@@ -33,7 +33,7 @@ For the face coordinate, the team quantized 3 channel(RGB) x 29 frame x 256 widt
 
 |                Face Coordinate Spectrogram                |
 | :-------------------------------------------------------: |
-| <img src="./assets/face3.png" alt="drawing" width="750"/> |
+| <img src="./assets/face3.png" alt="drawing" width="700"/> |
 
 Previous research focused on utilizing such coordinate information to reorient and normalize the position of the face. However, interpolating entire facial features’ coordinate information to use as another input will resolve previous problem of disposing nonverbal communication cues outside of RoI.
 
