@@ -12,7 +12,7 @@ The goal is to construct model which classifies spoken words from video solely b
 
 |     Method      |    Venue    |           Organization           | Spatial Module | Temporal Module | LRW Test Accuracy(%) |
 | :-------------: | :---------: | :------------------------------: | :------------: | :-------------: | :------------------: |
-|    **Ours**     |      -      |   **Yonsei University, Korea**   |  **Resnet18**  | **Transformer** |      **88.75**       |
+|    **Ours**     |      -      |              **-**               |  **Resnet18**  | **Transformer** |      **88.75**       |
 |   Kim et al.    |  AAAI 2022  |           KAIST, Korea           |    Resnet18    |   MS-TCN/MVM    |         88.5         |
 |    Ma et al.    |  WACV 2021  | Imperial College U.K Facebook AI |    Resnet18    |     DC-TCN      |         88.4         |
 |    Ma et al.    | ICASSP 2021 | Imperial College U.K Samsung AI  |    Resnet18    |     MS-TCN      |         87.9         |
