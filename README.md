@@ -6,6 +6,10 @@ Weakly Supervised Pretraining for Cross Modal Video Language Transformers to ach
 
 The goal is to construct model which classifies spoken words from video solely based on visual input. Lip reading classification models are consisted of frontend-backend structure, where dominant backend modules are intricate recurrent or temporal convolutional network. The team proposes new training strategy: (1) pretraining encoder-decoder transformer with input of facial landmark spectrograms and grayscale videos yielding captioning loss from the output of pseudo-labeled audio tokens, (2) finetuning pretrained encoder only for the classification task. **Two-stage training methodology requires no extra data and achieves state of the art performance by improving previous transformer baseline by +12.5%p in LRW benchmark.** Our model achieves 88.75% test accuracy after training 23 hours on three GPUs, reducing total training costs by 18% compared to RNN based baseline.
 
+|                      Pretraining Stage                       |                       Finetuning Stage                       |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+| <img src="./assets/pretraining.png" alt="drawing" width="500"/> | <img src="./assets/finetuning.png" alt="drawing" width="500"/> |
+
 |     Method      |    Venue    |           Organization           | Spatial Module | Temporal Module | LRW Test Accuracy(%) |
 | :-------------: | :---------: | :------------------------------: | :------------: | :-------------: | :------------------: |
 |    **Ours**     |      -      |   **Yonsei University, Korea**   |  **Resnet18**  | **Transformer** |      **88.75**       |
@@ -27,9 +31,9 @@ For the face coordinate, the team quantized 3 channel(RGB) x 29 frame x 256 widt
 | :------------------------------: | :----------------------------------------------------: |
 | ![BRITAIN](./assets/BRITAIN.gif) | ![Coordinate_BRITAIN](./assets/BRITAIN_coordinate.gif) |
 
-| Face Coordinate Spectrogram  |
-| :--------------------------: |
-| ![face3](./assets/face3.png) |
+|                Face Coordinate Spectrogram                |
+| :-------------------------------------------------------: |
+| <img src="./assets/face3.png" alt="drawing" width="550"/> |
 
 Previous research focused on utilizing such coordinate information to reorient and normalize the position of the face. However, interpolating entire facial features’ coordinate information to use as another input will resolve previous problem of disposing nonverbal communication cues outside of RoI.
 
@@ -71,16 +75,16 @@ Instead of fitting the bidirectional encoder to the classification task, BERT-al
 
 |     Hyperparams      | Pretraining Encoder-Decoder | Finetuning Bidirectional Encoder |
 | :------------------: | :-------------------------: | :------------------------------: |
-|    Training Hours    |            11hrs            |              12hrs               |
-|       #Epochs        |              7              |                10                |
 |       #Params        |             93M             |               63M                |
+|       #Epochs        |              7              |                10                |
+|    Training Hours    |            11hrs            |              12hrs               |
 |     GPU Resource     |        V100 32GB x 3        |          V100 32GB x 3           |
-|      Batch Size      |           42 x 3            |              64 x 3              |
 |    Video Frontend    |       3D CNN + ResNet       |         3D CNN + ResNet          |
 | Spectrogram Frontend |       Patchification        |          Patchification          |
 |   Backbone #Layers   |   12 Encoder + 6 Decoder    |    12 Encoder + 1 Classifier     |
 |      Initial LR      |            3e-4             |               1e-4               |
 |     Weight Decay     |            1e-2             |               1e-2               |
+|      Batch Size      |             128             |               192                |
 |      Optimizer       |            AdamW            |              AdamW               |
 |     LR Scheduler     |      CosineAnnealingLR      |        CosineAnnealingLR         |
 |      Dimension       |             512             |               512                |
