@@ -6,22 +6,22 @@ Weakly Supervised Pretraining for Cross Modal Video Language Transformers to ach
 
 The goal is to construct model which classifies spoken words from video solely based on visual input. Lip reading classification models are consisted of frontend-backend structure, where dominant backend modules are intricate recurrent or temporal convolutional network. The team proposes new training strategy: (1) pretraining encoder-decoder transformer with input of facial landmark spectrograms and grayscale videos yielding captioning loss from the output of pseudo-labeled audio tokens, (2) finetuning pretrained encoder only for the classification task. **Two-stage training methodology requires no extra data and achieves state of the art performance by improving previous transformer baseline by +12.5%p in LRW benchmark.** Our model achieves 88.75% test accuracy after training 23 hours on three GPUs, reducing total training costs by 18% compared to RNN based baseline.
 
-|                      Pretraining Stage                       |                       Finetuning Stage                       |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|                        Pretraining Stage                        |                        Finetuning Stage                        |
+| :-------------------------------------------------------------: | :------------------------------------------------------------: |
 | <img src="./assets/pretraining.png" alt="drawing" width="500"/> | <img src="./assets/finetuning.png" alt="drawing" width="500"/> |
 
-|     Method      |    Venue    |           Organization           | Spatial Module | Temporal Module | LRW Test Accuracy(%) |
-| :-------------: | :---------: | :------------------------------: | :------------: | :-------------: | :------------------: |
-|    **Ours**     |      -      |              **-**               |  **Resnet18**  | **Transformer** |      **88.75**       |
-|   Kim et al.    |  AAAI 2022  |           KAIST, Korea           |    Resnet18    |   MS-TCN/MVM    |         88.5         |
-|    Ma et al.    |  WACV 2021  | Imperial College U.K Facebook AI |    Resnet18    |     DC-TCN      |         88.4         |
-|    Ma et al.    | ICASSP 2021 | Imperial College U.K Samsung AI  |    Resnet18    |     MS-TCN      |         87.9         |
-|   Kim et al.    |  CVPR 2021  |           KAIST, Korea           |    Resnet18    |      BiGRU      |         85.4         |
-| Martinez et al. | ICASSP 2020 | Imperial College U.K Facebook AI |    Resnet18    |     MS-TCN      |         85.3         |
-|    Xu et al.    |  CVPR 2020  |           Xpeng motors           |    Resnet50    |     BiLSTM      |         84.8         |
-|   Zhao et al.   |  AAAI 2020  |            CAS, China            |    Resnet18    |   BiGRU+LSTM    |         84.4         |
-|   Luo et al.    |  BMVC 2020  |            CAS, China            |    Resnet18    |   Transformer   |         76.2         |
-|   Weng et al.   |  BMVC 2019  |             CMU, USA             |      I3D       |     BiLSTM      |         84.1         |
+|     Method      | LRW Test Accuracy(%) | Temporal Module | Spatial Module |    Venue    |           Organization           |
+| :-------------: | :------------------: | :-------------: | :------------: | :---------: | :------------------------------: |
+|    **Ours**     |      **88.75**       | **Transformer** |  **Resnet18**  |      -      |                -                 |
+|   Kim et al.    |         88.5         |   MS-TCN/MVM    |    Resnet18    |  AAAI 2022  |           KAIST, Korea           |
+|    Ma et al.    |         88.4         |     DC-TCN      |    Resnet18    |  WACV 2021  | Imperial College U.K Facebook AI |
+|    Ma et al.    |         87.9         |     MS-TCN      |    Resnet18    | ICASSP 2021 | Imperial College U.K Samsung AI  |
+|   Kim et al.    |         85.4         |      BiGRU      |    Resnet18    |  CVPR 2021  |           KAIST, Korea           |
+| Martinez et al. |         85.3         |     MS-TCN      |    Resnet18    | ICASSP 2020 | Imperial College U.K Facebook AI |
+|    Xu et al.    |         84.8         |     BiLSTM      |    Resnet50    |  CVPR 2020  |           Xpeng motors           |
+|   Zhao et al.   |         84.4         |   BiGRU+LSTM    |    Resnet18    |  AAAI 2020  |            CAS, China            |
+|   Luo et al.    |         76.2         |   Transformer   |    Resnet18    |  BMVC 2020  |            CAS, China            |
+|   Weng et al.   |         84.1         |     BiLSTM      |      I3D       |  BMVC 2019  |             CMU, USA             |
 
 ### Face Coordinate Spectrogram
 
