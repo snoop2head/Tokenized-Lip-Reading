@@ -23,6 +23,22 @@ The goal is to construct model which classifies spoken words from video solely b
 |   Luo et al.    |         76.2         |   Transformer   |    Resnet18    |  BMVC 2020  |            CAS, China            |
 |   Weng et al.   |         84.1         |     BiLSTM      |      I3D       |  BMVC 2019  |             CMU, USA             |
 
+### Problem Definition
+
+1. Disposal of spatial information outside of Region of Interest
+2. Exclusion of peripheral audio information
+3. Unsuitable class encoding for the ground truth
+4. Costly training schemes
+
+### Proposed Resolution
+
+1. Capturing information outside of RoI using Face Coordinate Spectrogram.
+2. Pseudo-labeling audio information as target tokens for the model to predict.
+3. Pretraining encoder-decoder transformer with captioning loss rather than classification loss.
+4. Finetuning transformer encoder in 10 epochs with R-Drop Regularization rather than relying on random augmentation.
+
+## Specifics of the Approach
+
 ### Face Coordinate Spectrogram
 
 For the face coordinate, the team quantized 3 channel(RGB) x 29 frame x 256 width x 256 height video into 3 channel(X,Y,Z) x 29 frame x 420 coordinate image. Each coordinate’s (X,Y,Z) coordinate is given as channel, where spatial characteristics lie in the width and temporal axis is the height.
