@@ -1,6 +1,8 @@
-# Tokenized Lip Reading
+# Tokenized Lip Reading (WIP)
 
-Weakly Supervised Pretraining for Cross Modal Video Language Transformers to achieve SOTA performance in Lip Reading in the Wild (LRW) Benchmark without additional data.
+Weakly Supervised Pretraining for Cross Modal Video Language Transformers in Lip Reading in the Wild (LRW) Benchmark without additional data.
+
+Currently working in progress where new methodology will be released soon.
 
 ### Abstract
 
