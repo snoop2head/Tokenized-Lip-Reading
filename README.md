@@ -2,7 +2,7 @@
 
 Weakly Supervised Pretraining for Cross Modal Video Language Transformers in Lip Reading in the Wild (LRW) Benchmark without additional data.
 
-Currently working in progress where new methodology will be released soon.
+Currently work in progress where new methodology will be released soon.
 
 ### Abstract
 
